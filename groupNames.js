@@ -15,4 +15,8 @@ router.post("/", (req, res) => {
   res.send(name);
 });
 
-module.exports = router;
+function storeGroupName(name) {
+  groupNames.push(name);
+}
+
+module.exports = { router, storeGroupName };

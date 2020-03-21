@@ -1,4 +1,5 @@
 const express = require("express");
+const groupNames = require("./groupNames");
 const router = express.Router();
 
 const notes = [
@@ -29,6 +30,7 @@ router.post("/", (req, res) => {
   };
 
   notes.push(notes);
+  groupNames.storeGroupName(note.groupName);
 });
 
 module.exports = router;
