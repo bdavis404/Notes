@@ -1,5 +1,5 @@
 const express = require("express");
-const groupNames = require("./groupNames");
+const groupNames = require("./groupNames").storeGroupName;
 const router = express.Router();
 
 const notes = [
@@ -16,6 +16,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:groupName", (req, res) => {
+  // return list of notes of a speciic group
+
   const note = notes.find(note => note.groupName === req.params.groupName);
   if (!note) return res.status(404).send("Notes not found");
 
@@ -24,13 +26,17 @@ router.get("/:groupName", (req, res) => {
 
 router.post("/", (req, res) => {
   //console.log(req.body)
+
   const note = {
     groupName: req.body.name,
+    title: req.body.title,
     notes: req.body.notes
   };
 
   notes.push(notes);
-  groupNames.storeGroupName(note.groupName);
+  res.send(note);
+  //groupNames.groupNames;
+  groupNames(note.groupName);
 });
 
 module.exports = router;

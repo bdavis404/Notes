@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-const groupNames = [];
+const groupNames = ["science"];
 
 router.get("/", (req, res) => {
+  // returning existing groups
+
   res.send(groupNames);
 });
 
 router.post("/", (req, res) => {
-  //console.log(req.body);
+  // creating a group
 
   const name = req.body.name;
   groupNames.push(name);
