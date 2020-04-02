@@ -1,8 +1,7 @@
 const express = require("express");
-const groupNames = require("./groupNames");
-const notes = require("./notes");
+const groupNames = require("./routes/groupNames");
+const notes = require("./routes/notes");
 const app = express();
-
 app.use(express.json());
 
 app.use("/groups", groupNames.router);
