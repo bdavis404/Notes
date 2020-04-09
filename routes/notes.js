@@ -1,5 +1,5 @@
 const express = require("express");
-const groupNames = require("./groupNames").storeGroupName;
+const services = require("../services");
 const router = express.Router();
 
 const notes = [
@@ -25,18 +25,15 @@ router.get("/:groupName", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  //console.log(req.body)
-
   const note = {
     groupName: req.body.name,
     title: req.body.title,
     notes: req.body.notes
   };
 
-  notes.push(notes);
-  res.send(note);
-  //groupNames.groupNames;
-  groupNames(note.groupName);
+  const result = services.createNote(note);
+  console.log(result);
+  res.send(result);
 });
 
 module.exports = router;

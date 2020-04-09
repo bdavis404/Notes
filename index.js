@@ -1,10 +1,17 @@
 const express = require("express");
 const groupNames = require("./routes/groupNames");
 const notes = require("./routes/notes");
+const dbConfig = require("./db/dbConfig");
 const app = express();
+
+// middleware
 app.use(express.json());
 
-app.use("/groups", groupNames.router);
+// start mongodb connection
+dbConfig.startDBConnection();
+
+// routes
+//app.use("/groups", groupNames.router);
 app.use("/notes", notes);
 
 // export PORT=5000 == assign port to env variable

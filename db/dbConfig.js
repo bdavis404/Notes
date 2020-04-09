@@ -1,8 +1,27 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/test", { useUnifiedTopology: true });
-const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "connection error:"));
-db.on("open", () => {
-  console.log("mongodb connected...");
-});
+function startDBConnection() {
+  mongoose
+    .connect("mongodb://localhost/Notes-App", { useUnifiedTopology: true })
+    .then(() => {
+      console.log("MongoDB connected....");
+      const notesSchema = createNotesSchema();
+      const Note = mongoose.model("Note", notesSchema);
+    })
+
+    .catch(err => {
+      console.error("connection failute", err);
+    });
+}
+
+function createNotesSchema() {
+  const notesSchema = new mongoose.Schema({
+    groupName: String,
+    title: String,
+    notes: String
+  });
+  return notesSchema;
+}
+
+module.exports.startDBConnection = startDBConnection;
+module.exports.Note = this.Note;
