@@ -28,12 +28,12 @@ router.post("/", (req, res) => {
   const note = {
     groupName: req.body.name,
     title: req.body.title,
-    notes: req.body.notes
+    entry: req.body.entry
   };
 
-  const result = services.createNote(note);
-  console.log(result);
-  res.send(result);
+  services.createNote(note);
+  //console.log(result);
+  res.send("SENT!");
 });
 
 module.exports = router;
