@@ -18,10 +18,23 @@ async function getNotes() {
   return notes;
 }
 
-// get note with specified title
-async function getNote(title) {}
+// get note with specified id
+async function getNote(id) {
+  const note = await Note.findById(id, (err, note) => {
+    if (err) {
+      console.error(err);
+      return err;
+    }
+    return note;
+  });
+
+  return note;
+}
+
+// get Group Names
 
 module.exports = {
   createNote: createNote,
+  getNote: getNote,
   getNotes: getNotes,
 };

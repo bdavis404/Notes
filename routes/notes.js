@@ -7,6 +7,7 @@ router.get("/", (req, res) => {
   const result = services.getNotes();
   result.then(
     (notes) => {
+      if (notes.length == 0) res.send("No recorded notes.");
       res.send(notes);
     },
     (reason) => {
@@ -16,13 +17,18 @@ router.get("/", (req, res) => {
   );
 });
 
-router.get("/:groupName", (req, res) => {
-  // return list of notes of a speciic group
-
-  const note = notes.find((note) => note.groupName === req.params.groupName);
-  if (!note) return res.status(404).send("Notes not found");
-
-  res.send(note);
+router.get("/:id", (req, res) => {
+  // return a single note
+  const id = req.params.id;
+  const note = services.getNote(id);
+  note.then(
+    (value) => {
+      res.send(value);
+    },
+    (reason) => {
+      res.status(404).send("Note Not Found");
+    }
+  );
 });
 
 router.post("/", (req, res) => {
@@ -44,5 +50,9 @@ router.post("/", (req, res) => {
     }
   );
 });
+
+// put
+
+//delete
 
 module.exports = router;
