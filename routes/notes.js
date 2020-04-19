@@ -3,32 +3,29 @@ const services = require("../services");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  // res.send(notes);
-  const result = services.getNotes();
-  result.then(
-    (notes) => {
+  services
+    .getNotes()
+    .then((notes) => {
       if (notes.length == 0) res.send("No recorded notes.");
       res.send(notes);
-    },
-    (reason) => {
+    })
+    .catch((reason) => {
       console.error(reason);
       res.status(404).send(reason);
-    }
-  );
+    });
 });
 
 router.get("/:id", (req, res) => {
   // return a single note
   const id = req.params.id;
-  const note = services.getNote(id);
-  note.then(
-    (value) => {
+  services
+    .getNote(id)
+    .then((value) => {
       res.send(value);
-    },
-    (reason) => {
-      res.status(404).send("Notes Not Found");
-    }
-  );
+    })
+    .catch((reason) => {
+      res.send("##ERRORR ##");
+    });
 });
 
 router.post("/", (req, res) => {
@@ -38,17 +35,14 @@ router.post("/", (req, res) => {
     entry: req.body.entry,
   };
 
-  const result = services.createNote(note);
-
-  result.then(
-    (value) => {
-      res.send(value);
-    },
-    (reason) => {
-      console.error(reason);
-      res.status(400).send("Bad request");
-    }
-  );
+  services
+    .createNote(note)
+    .then((note) => {
+      res.send(note);
+    })
+    .catch((reason) => {
+      res.status(500).send("Backend Error", reason);
+    });
 });
 
 // put

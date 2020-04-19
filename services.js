@@ -11,11 +11,10 @@ async function createNote(noteObj) {
 
 // get all notes
 async function getNotes() {
-  const notes = await Note.find((err, res) => {
+  return await Note.find((err, res) => {
     if (err) return err;
     return res;
   });
-  return notes;
 }
 
 // get note with specified id
