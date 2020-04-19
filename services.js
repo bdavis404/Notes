@@ -20,15 +20,42 @@ async function getNotes() {
 
 // get note with specified id
 async function getNote(id) {
-  const note = await Note.findById(id, (err, note) => {
+  return findNoteById(id)
+    .then((note) => {
+      return note;
+    })
+    .catch((reason) => {
+      console.log("ERROR!!", reason);
+    });
+}
+
+async function updateNoteObj(id, newnoteObj) {
+  return findNoteById(id)
+    .then((note) => {
+      if (note) {
+        note.groupName = newnoteObj.groupName;
+        note.title = newnoteObj.title;
+        note.entry = newnoteObj.entry;
+        return note.save();
+      } else {
+        return null;
+      }
+    })
+    .catch((reason) => {
+      console.log("### ERROR ###", reason);
+      return reason;
+    });
+}
+
+async function findNoteById(id) {
+  return await Note.findById(id, (err, note) => {
     if (err) {
-      console.error(err);
+      console.log("### ERROR in findNoteById ###", err);
       return err;
     }
+    console.log("FOUND! =", note);
     return note;
   });
-
-  return note;
 }
 
 // get Group Names
@@ -37,4 +64,5 @@ module.exports = {
   createNote: createNote,
   getNote: getNote,
   getNotes: getNotes,
+  updateNote: updateNoteObj,
 };

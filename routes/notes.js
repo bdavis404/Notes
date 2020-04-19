@@ -26,7 +26,7 @@ router.get("/:id", (req, res) => {
       res.send(value);
     },
     (reason) => {
-      res.status(404).send("Note Not Found");
+      res.status(404).send("Notes Not Found");
     }
   );
 });
@@ -52,6 +52,18 @@ router.post("/", (req, res) => {
 });
 
 // put
+router.put("/:id", (req, res) => {
+  const note = req.body;
+  const noteId = req.params.id;
+  services
+    .updateNote(noteId, note)
+    .then((value) => {
+      res.send(value);
+    })
+    .catch((reason) => {
+      res.status(400).send("Bad Request:", reason);
+    });
+});
 
 //delete
 
