@@ -1,30 +1,25 @@
 const express = require("express");
-const services = require("../services");
+const noteService = require("../noteService");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  services
-    .getNotes()
-    .then((notes) => {
-      if (notes.length == 0) res.send("No recorded notes.");
-      res.send(notes);
-    })
-    .catch((reason) => {
-      console.error(reason);
-      res.status(404).send(reason);
-    });
+  noteService.getNotes().then((notes) => {
+    if (notes.length == 0) res.send("No recorded notes.");
+    res.send(notes);
+  });
 });
 
 router.get("/:id", (req, res) => {
   // return a single note
   const id = req.params.id;
-  services
+
+  noteService
     .getNote(id)
-    .then((value) => {
-      res.send(value);
+    .then((note) => {
+      res.send(note);
     })
     .catch((reason) => {
-      res.send("##ERRORR ##");
+      res.send("## ERRORR ##", reason);
     });
 });
 
@@ -35,7 +30,7 @@ router.post("/", (req, res) => {
     entry: req.body.entry,
   };
 
-  services
+  noteService
     .createNote(note)
     .then((note) => {
       res.send(note);
@@ -49,7 +44,8 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   const note = req.body;
   const noteId = req.params.id;
-  services
+
+  noteService
     .updateNote(noteId, note)
     .then((value) => {
       res.send(value);
@@ -60,5 +56,6 @@ router.put("/:id", (req, res) => {
 });
 
 //delete
+//router.delete("/:id", (req, res) => {});
 
 module.exports = router;

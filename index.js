@@ -1,5 +1,5 @@
 const express = require("express");
-const groupNames = require("./routes/groupNames");
+//const groupNames = require("./routes/groupNames");
 const notes = require("./routes/notes");
 const dbConfig = require("./db/dbConfig");
 const app = express();
