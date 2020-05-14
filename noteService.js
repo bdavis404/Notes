@@ -2,19 +2,25 @@ const dbConfig = require("./db/dbConfig");
 const Note = dbConfig.Note;
 
 async function createNote(noteObj) {
-  return new Note(noteObj).save();
+  return new Note(noteObj).save().catch((reason) => {
+    return reason.message;
+  });
 }
 
-// get all notes
-async function getNotes() {
-  return await Note.find().then((note) => {
+async function deleteNote(id) {
+  return await Note.findOneAndRemove({ _id: id }).then((result) => {
+    return result;
+  });
+}
+
+async function getNote(id) {
+  return await Note.findOne({ _id: id }).then((note) => {
     return note;
   });
 }
 
-// get note with specified id
-async function getNote(id) {
-  return await Note.findOne({ _id: id }).then((note) => {
+async function getNotes() {
+  return await Note.find().then((note) => {
     return note;
   });
 }
@@ -33,15 +39,9 @@ async function updateNote(id, newnoteObj) {
   );
 }
 
-// async function deleteNote(id) {
-//   Note.deleteOne()
-
-// }
-
-// get Group Names
-
 module.exports = {
   createNote: createNote,
+  deleteNote: deleteNote,
   getNote: getNote,
   getNotes: getNotes,
   updateNote: updateNote,

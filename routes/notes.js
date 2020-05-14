@@ -16,7 +16,11 @@ router.get("/:id", (req, res) => {
   noteService
     .getNote(id)
     .then((note) => {
-      res.send(note);
+      if (note) {
+        res.send(note);
+      } else {
+        res.status(404).send("Note not Found");
+      }
     })
     .catch((reason) => {
       res.send("## ERRORR ##", reason);
@@ -30,17 +34,11 @@ router.post("/", (req, res) => {
     entry: req.body.entry,
   };
 
-  noteService
-    .createNote(note)
-    .then((note) => {
-      res.send(note);
-    })
-    .catch((reason) => {
-      res.status(500).send("Backend Error", reason);
-    });
+  noteService.createNote(note).then((note) => {
+    res.send(note);
+  });
 });
 
-// put
 router.put("/:id", (req, res) => {
   const note = req.body;
   const noteId = req.params.id;
@@ -55,7 +53,20 @@ router.put("/:id", (req, res) => {
     });
 });
 
-//delete
-//router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  noteService
+    .deleteNote(id)
+    .then((result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(400).send("Bad Request:", reason);
+      }
+    })
+    .catch((reason) => {
+      res.status(400).send("Bad Request:", reason);
+    });
+});
 
 module.exports = router;

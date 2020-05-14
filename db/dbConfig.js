@@ -16,7 +16,7 @@ function createNotesSchema() {
   const notesSchema = new mongoose.Schema({
     groupName: String,
     title: String,
-    entry: String,
+    entry: { type: String, required: true },
   });
   return notesSchema;
 }
