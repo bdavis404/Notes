@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 function startDBConnection() {
   mongoose
-    .connect("mongodb://localhost/Notes-App", { useUnifiedTopology: true })
+    .set("useFindAndModify", false)
+    .set("useNewUrlParser", true)
+    .set("useUnifiedTopology", true)
+    .connect("mongodb://localhost/Notes-App")
     .then(() => {
       console.log("MongoDB connected....");
     })
@@ -14,9 +17,10 @@ function startDBConnection() {
 function createNotesSchema() {
   console.log("creating notes schema");
   const notesSchema = new mongoose.Schema({
+    entry: { type: String, required: true },
     groupName: String,
     title: String,
-    entry: { type: String, required: true },
+    topic: String,
   });
   return notesSchema;
 }

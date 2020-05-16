@@ -1,12 +1,14 @@
 const express = require("express");
+const topicService = require("../topicService");
 const router = express.Router();
 
 const groupNames = ["science"];
 
 router.get("/", (req, res) => {
-  // returning existing groups
-
-  res.send(groupNames);
+  // returning existing group
+  topicService.getTopics().then((topics) => {
+    res.send(topics);
+  });
 });
 
 router.post("/", (req, res) => {
@@ -21,4 +23,4 @@ function storeGroupName(name) {
   groupNames.push(name);
 }
 
-module.exports = { router, storeGroupName };
+module.exports = router;

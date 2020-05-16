@@ -49,7 +49,7 @@ router.put("/:id", (req, res) => {
       res.send(value);
     })
     .catch((reason) => {
-      res.status(400).send("Bad Request:", reason);
+      res.status(500).send("Bad Request:", reason);
     });
 });
 

@@ -11,7 +11,7 @@ app.use(express.json());
 dbConfig.startDBConnection();
 
 // routes
-//app.use("/groups", groupNames.router);
+//app.use("/topics", groupNames.router);
 app.use("/notes", notes);
 
 // export PORT=5000 == assign port to env variable

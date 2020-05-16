@@ -26,17 +26,23 @@ async function getNotes() {
 }
 
 async function updateNote(id, newnoteObj) {
-  return await Note.findByIdAndUpdate(
-    { _id: id },
-    {
-      $set: {
-        groupName: newnoteObj.groupName,
-        title: newnoteObj.title,
-        entry: newnoteObj.entry,
+  console.log(newnoteObj);
+  try {
+    return await Note.findByIdAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          groupName: newnoteObj.groupName,
+          title: newnoteObj.title,
+          entry: newnoteObj.entry,
+          topic: newnoteObj.topic ? newnoteObj.topic : null,
+        },
       },
-    },
-    { new: true }
-  );
+      { new: true }
+    );
+  } catch (error) {
+    return error;
+  }
 }
 
 module.exports = {
