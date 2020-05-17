@@ -16,6 +16,7 @@ router.get("/:id", (req, res) => {
   noteService
     .getNote(id)
     .then((note) => {
+      console.log(note);
       if (note) {
         res.send(note);
       } else {
@@ -29,9 +30,9 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const note = {
-    groupName: req.body.name,
-    title: req.body.title,
     entry: req.body.entry,
+    title: req.body.title,
+    topic: req.body.topic,
   };
 
   noteService.createNote(note).then((note) => {
@@ -58,11 +59,7 @@ router.delete("/:id", (req, res) => {
   noteService
     .deleteNote(id)
     .then((result) => {
-      if (result) {
-        res.send(result);
-      } else {
-        res.status(400).send("Bad Request:", reason);
-      }
+      res.send("Delete Successful");
     })
     .catch((reason) => {
       res.status(400).send("Bad Request:", reason);

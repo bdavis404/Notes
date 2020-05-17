@@ -18,7 +18,6 @@ function createNotesSchema() {
   console.log("creating notes schema");
   const notesSchema = new mongoose.Schema({
     entry: { type: String, required: true },
-    groupName: String,
     title: String,
     topic: String,
   });

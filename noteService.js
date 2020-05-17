@@ -2,31 +2,38 @@ const dbConfig = require("./db/dbConfig");
 const Note = dbConfig.Note;
 
 async function createNote(noteObj) {
-  return new Note(noteObj).save().catch((reason) => {
-    return reason.message;
-  });
+  try {
+    return await new Note(noteObj).save();
+  } catch (error) {
+    return error;
+  }
 }
 
 async function deleteNote(id) {
-  return await Note.findOneAndRemove({ _id: id }).then((result) => {
-    return result;
-  });
+  try {
+    return await Note.findOneAndRemove({ _id: id });
+  } catch (error) {
+    return error;
+  }
 }
 
 async function getNote(id) {
-  return await Note.findOne({ _id: id }).then((note) => {
-    return note;
-  });
+  try {
+    return await Note.findOne({ _id: id });
+  } catch (error) {
+    return error;
+  }
 }
 
 async function getNotes() {
-  return await Note.find().then((note) => {
-    return note;
-  });
+  try {
+    return await Note.find();
+  } catch (error) {
+    return error;
+  }
 }
 
 async function updateNote(id, newnoteObj) {
-  console.log(newnoteObj);
   try {
     return await Note.findByIdAndUpdate(
       { _id: id },
