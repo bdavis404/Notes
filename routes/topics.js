@@ -1,11 +1,12 @@
 const express = require("express");
-const topicService = require("../topicService");
+const topicService = require("../services/topicService");
 const router = express.Router();
 
 const groupNames = ["science"];
 
 router.get("/", (req, res) => {
-  // returning existing group
+  // get all topics
+  console.log("getting topics...");
   topicService.getTopics().then((topics) => {
     res.send(topics);
   });

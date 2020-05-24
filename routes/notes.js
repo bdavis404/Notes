@@ -1,5 +1,5 @@
 const express = require("express");
-const noteService = require("../noteService");
+const noteService = require("../services/noteService");
 const router = express.Router();
 
 router.get("/", (req, res) => {

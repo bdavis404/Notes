@@ -1,4 +1,4 @@
-const dbConfig = require("./db/dbConfig");
+const dbConfig = require("../db/dbConfig");
 const Note = dbConfig.Note;
 
 async function createNote(noteObj) {

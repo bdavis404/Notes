@@ -1,6 +1,7 @@
 const express = require("express");
 //const groupNames = require("./routes/groupNames");
 const notes = require("./routes/notes");
+const topics = require("./routes/topics");
 const dbConfig = require("./db/dbConfig");
 const app = express();
 
@@ -13,6 +14,7 @@ dbConfig.startDBConnection();
 // routes
 //app.use("/topics", groupNames.router);
 app.use("/notes", notes);
+app.use("/topics", topics);
 
 // export PORT=5000 == assign port to env variable
 const port = 3000;

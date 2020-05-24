@@ -1,5 +1,7 @@
-const dbConfig = require("./db/dbConfig");
+const dbConfig = require("../db/dbConfig");
 const Note = dbConfig.Note;
+
+// Create, Read, Update, Delete topic
 
 async function getTopics() {
   const topics = [];
