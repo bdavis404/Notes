@@ -9,8 +9,9 @@ async function getTopics() {
       notes.forEach((note) => {
         if (!note.topic) {
           return;
+        } else {
+          topics.push(note.topic);
         }
-        topics.push(note.topic);
       });
     });
   return topics;
