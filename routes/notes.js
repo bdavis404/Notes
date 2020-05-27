@@ -34,12 +34,12 @@ router.post("/", (req, res) => {
     title: req.body.title,
     topic: req.body.topic,
   };
-
+  // TODO: validate(req.body)
   noteService.createNote(note).then((note) => {
     res.send(note);
   });
 });
-
+// TODO: validate(req.body)
 router.put("/:id", (req, res) => {
   const note = req.body;
   const noteId = req.params.id;

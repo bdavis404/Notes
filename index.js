@@ -1,5 +1,4 @@
 const express = require("express");
-//const groupNames = require("./routes/groupNames");
 const notes = require("./routes/notes");
 const topics = require("./routes/topics");
 const dbConfig = require("./db/dbConfig");
@@ -12,7 +11,6 @@ app.use(express.json());
 dbConfig.startDBConnection();
 
 // routes
-//app.use("/topics", groupNames.router);
 app.use("/notes", notes);
 app.use("/topics", topics);
 

@@ -1,5 +1,4 @@
-const dbConfig = require("../db/dbConfig");
-const Note = dbConfig.Note;
+const Note = require("../models/note");
 
 async function createNote(noteObj) {
   try {
